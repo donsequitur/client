@@ -8,6 +8,10 @@
     Notes
     <span class="selection-tabs__count" ng-if="vm.totalNotes > 0">{{ vm.totalNotes }}</sup>
   </li>
+  <li ng-if="vm.totalOrphans > 0" class="selection-tabs__type selection-tabs__type--orphan" ng-class="{'selection-tabs--selected': vm.selectedTab === vm.tabOrphans}" ng-click="vm.selectTab(vm.TAB_ORPHANS)">
+    Orphans
+    <span class="selection-tabs__count">{{ vm.totalOrphans }}</sup>
+  </li>
 </ul>
 <div ng-if="!vm.isLoading()">
   <div ng-if="vm.selectedTab === vm.TAB_NOTES && vm.totalNotes === 0"  class="annotation-unavailable-message">

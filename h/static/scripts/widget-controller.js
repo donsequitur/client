@@ -61,6 +61,16 @@ module.exports = function WidgetController(
   }
 
   /**
+   * Returns the number of top level annotations which are unanchored i.e orphans.
+   */
+  function countOrphans(annotations) {
+    var total = annotations.reduce(function (count, annotation) {
+      return annotation && metadata.isOrphan(annotation) ? count + 1 : count;
+    }, 0);
+    return total;
+  }
+
+  /**
    * Returns the height of the thread for an annotation if it exists in the view
    * or undefined otherwise.
    */
@@ -99,6 +109,7 @@ module.exports = function WidgetController(
 
     $scope.totalAnnotations = countAnnotations(annotationUI.getState().annotations);
     $scope.totalNotes = countNotes(annotationUI.getState().annotations);
+    $scope.totalOrphans = countOrphans(annotationUI.getState().annotations);
   });
 
   visibleThreads.on('changed', function (state) {

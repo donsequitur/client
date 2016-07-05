@@ -103,7 +103,12 @@ function isNew(annotation) {
 
 /** Return `true` if the given annotation is a page note, `false` otherwise. */
 function isPageNote(annotation) {
-  return !isAnnotation(annotation) && !isReply(annotation)
+  return !isAnnotation(annotation) && !isReply(annotation);
+}
+
+/** Return `true` if the given annotation is an orphan, `false` otherwise. */
+function isOrphan(annotation) {
+  return annotation.$orphan;
 }
 
 /** Return `true` if the given annotation is a top level annotation, `false` otherwise. */
@@ -137,6 +142,7 @@ module.exports = {
   domainAndTitle: domainAndTitle,
   isAnnotation: isAnnotation,
   isNew: isNew,
+  isOrphan: isOrphan,
   isPageNote: isPageNote,
   isReply: isReply,
   location: location,
