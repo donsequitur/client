@@ -107,9 +107,11 @@ module.exports = function WidgetController(
     visibleThreads.setRootThread(thread());
     $scope.selectedTab = annotationUI.getState().selectedTab;
 
-    $scope.totalAnnotations = countAnnotations(annotationUI.getState().annotations);
-    $scope.totalNotes = countNotes(annotationUI.getState().annotations);
-    $scope.totalOrphans = countOrphans(annotationUI.getState().annotations);
+    $rootScope.$on(events.ANNOTATIONS_SYNCED, function () {
+      $scope.totalAnnotations = countAnnotations(annotationUI.getState().annotations);
+      $scope.totalOrphans = countOrphans(annotationUI.getState().annotations);
+      $scope.totalNotes = countNotes(annotationUI.getState().annotations);
+    });
   });
 
   visibleThreads.on('changed', function (state) {
@@ -171,6 +173,9 @@ module.exports = function WidgetController(
     }
     if (metadata.isPageNote(annot)) {
       return uiConstants.TAB_NOTES;
+    }
+    if (metadata.isOrphan(annot)) {
+      return uiConstants.TAB_ORPHANS;
     }
   }
 
