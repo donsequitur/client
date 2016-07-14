@@ -121,7 +121,6 @@ module.exports = angular.module('h', [
   'ngRaven'
 ])
 
-  .controller('AppController', require('./app-controller'))
   .controller('AnnotationUIController', require('./annotation-ui-controller'))
   .controller('AnnotationViewerController', require('./annotation-viewer-controller'))
   .controller('StreamController', require('./stream-controller'))
@@ -130,6 +129,7 @@ module.exports = angular.module('h', [
   .directive('annotation', require('./directive/annotation').directive)
   .directive('annotationShareDialog', require('./directive/annotation-share-dialog'))
   .directive('annotationThread', require('./directive/annotation-thread'))
+  .directive('app', require('./directive/app'))
   .directive('dropdownMenuBtn', require('./directive/dropdown-menu-btn'))
   .directive('excerpt', require('./directive/excerpt').directive)
   .directive('formInput', require('./directive/form-input'))
@@ -200,3 +200,6 @@ module.exports = angular.module('h', [
   .run(setupHttp);
 
 processAppOpts();
+
+var appEl = document.querySelector('app');
+angular.bootstrap(appEl, ['h'], {strictDi: true});
