@@ -118,7 +118,7 @@ describe('Streamer', function () {
     assert.equal(fakeWebSocket.messages[0].value, activeStreamer.clientId);
   });
 
-  context('.connect()', function () {
+  describe('#connect()', function () {
     it('should not close any existing socket', function () {
       createDefaultStreamer();
       activeStreamer.connect();
@@ -129,7 +129,7 @@ describe('Streamer', function () {
     });
   });
 
-  context('.reconnect()', function () {
+  describe('#reconnect()', function () {
     it('should close the existing socket', function () {
       createDefaultStreamer();
       activeStreamer.connect();
