@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Hypothesis</title>
+    
+    <base target="_top" href="/html" />
+  
+    <link rel="stylesheet" href="/html/pdfjs2/web/assets/styles/angular-csp.css?e61a94">
+    <link rel="stylesheet" href="/html/pdfjs2/web/assets/styles/angular-toastr.css?16d5c7">
+    <link rel="stylesheet" href="/html/pdfjs2/web/assets/styles/icomoon.css?36ecbe">
+    <link rel="stylesheet" href="/html/pdfjs2/web/assets/styles/katex.min.css?925527">
+    <link rel="stylesheet" href="/html/pdfjs2/web/assets/styles/app.css?c57a08">
+    
+    <!-- Custom ejp-relevant style, mostly to hide things we don't use -->
+    <style type="text/css">
+      /* Hide unused elements */
+      a.top-bar__btn,
+      button[name="highlight-visibility"],
+      signin-control
+      {
+         display: none;
+      }
+    </style>
+    
+  </head>
+  <body ng-app="h" ng-strict-di ng-controller="AppController" ng-csp="">
+    <top-bar
+      auth="auth"
+      on-login="login()"
+      on-logout="logout()"
+      on-share-page="share()"
+      on-show-help-panel="helpPanel.visible = true"
+      is-sidebar="::isSidebar"
+      search-controller="search"
+      sort-key="sortKey()"
+      sort-keys-available="sortKeysAvailable()"
+      on-change-sort-key="setSortKey(sortKey)">
+    </top-bar>
+
+    
+    <div class="create-account-banner" ng-if="isSidebar && (auth.status === 'signed-out' || auth.status === 'logged-out')" ng-cloak>
+      To annotate this document
+      <a href="https://hypothes.is/register" target="_blank">
+        create a free account
+      </a>
+      or <a href="" ng-click="login()">log in</a>
+    </div>
+
+    <div class="content" ng-cloak>
+      <login-form
+        ng-if="accountDialog.visible"
+        on-close="accountDialog.visible = false">
+      </login-form>
+      <sidebar-tutorial ng-if="isSidebar"></sidebar-tutorial>
+      <share-dialog
+        ng-if="shareDialog.visible"
+        on-close="shareDialog.visible = false">
+      </share-dialog>
+      <help-panel ng-if="helpPanel.visible"
+        on-close="helpPanel.visible = false"
+        auth="auth">
+      </help-panel>
+      <main ng-view=""></main>
+    </div>
+
+    <!-- App Configuration !-->
+    <script type="text/javascript">
+      var pathArray = location.href.split( '/' );
+      var baseProtocol = pathArray[0];
+      var baseHost = pathArray[2];
+      var base = baseProtocol + '//' + baseHost;
+
+      var apiUrl = base + '/html/hypothesis/api/';
+      var serviceUrl = base + '/html/hypothesis/api';
+    </script>
+    <script class="js-hypothesis-settings" type="application/json">
+      { 
+        "release": "0.33.0+15.gcf8274d", 
+        "apiUrl": apiUrl, 
+        "serviceUrl": serviceUrl
+      }
+    </script>
+
+    <!-- Scripts !-->
+    <script src="/html/pdfjs2/web/assets/scripts/raven.bundle.js?1f402a"></script>
+    <script src="/html/pdfjs2/web/assets/scripts/angular.bundle.js?6b1cbd"></script>
+    <script src="/html/pdfjs2/web/assets/scripts/katex.bundle.js?5ff8c3"></script>
+    <script src="/html/pdfjs2/web/assets/scripts/showdown.bundle.js?1e9f4c"></script>
+    <script src="/html/pdfjs2/web/assets/scripts/polyfills.bundle.js?a66b55"></script>
+    <script src="/html/pdfjs2/web/assets/scripts/unorm.bundle.js?5e23eb"></script>
+    <script src="/html/pdfjs2/web/assets/scripts/app.bundle.js?401f4b"></script>
+    
+  </body>
+</html>
